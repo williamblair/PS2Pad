@@ -81,7 +81,7 @@ class PS2Pad {
 	void stopBigEngine(void);
 
 	/* get joystick values - 
-	 * from -255,255 */
+	 * from 0-255, middle (not moved) is 127 */
 	int getLeftJoyX(void);
 	int getLeftJoyY(void);
 
