@@ -25,7 +25,9 @@ int main(int argc, char *argv[])
 
 	SifInitRpc(0);
 
-	PS2Pad pad1(0, 0);
+	//PS2Pad pad1(0, 0);
+    PS2Pad pad1;
+    pad1.init(0,0);
 
 	printf("Hi!\n"
 	       "Very welcome to this small and stupid pad test application\n"

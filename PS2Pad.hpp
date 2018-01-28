@@ -42,92 +42,94 @@
 
 class PS2Pad {
  public:
-	/* constructor */
-	PS2Pad(int port, int slot);
+    /* constructor */
+    PS2Pad(void);
 
-	/* deconstructor */
-	~PS2Pad();
+    /* deconstructor */
+    ~PS2Pad();
+    
+    bool init(int port, int slot);
 
-	/* update pad status */
-	void read(void);
+    /* update pad status */
+    void read(void);
 
-	/* enter and exit pressure
-	 * sensitive usability */
-	void enterPressureMode(void);
-	void exitPressureMode(void);
+    /* enter and exit pressure
+     * sensitive usability */
+    void enterPressureMode(void);
+    void exitPressureMode(void);
 
-	/* returns true if the
-	 * specified button (defined in
-	 * libpad.h) is pressed once */
-	int clicked(int button);
+    /* returns true if the
+     * specified button (defined in
+     * libpad.h) is pressed once */
+    int clicked(int button);
 
-	/* returns true if the specified
-	 * button is being held 
-	 * again, button is specified
-	 * in libpress.h */
-	int held(int button);
+    /* returns true if the specified
+     * button is being held 
+     * again, button is specified
+     * in libpress.h */
+    int held(int button);
 
-	/* pressure from 0-255 on the
-	 * given button, assuming
-	 * pressure mode is enabled (which)
-	 * it should be by default */
-	int getPressure(int button);
+    /* pressure from 0-255 on the
+     * given button, assuming
+     * pressure mode is enabled (which)
+     * it should be by default */
+    int getPressure(int button);
 
-	void startLittleEngine(void);
-	void stopLittleEngine(void);
+    void startLittleEngine(void);
+    void stopLittleEngine(void);
 
-	/* speed from 0-255 */
-	void startBigEngine(int speed);
-	void stopBigEngine(void);
+    /* speed from 0-255 */
+    void startBigEngine(int speed);
+    void stopBigEngine(void);
 
-	/* get joystick values - 
-	 * from 0-255, middle (not moved) is 127 */
-	int getLeftJoyX(void);
-	int getLeftJoyY(void);
+    /* get joystick values - 
+     * from 0-255, middle (not moved) is 127 */
+    int getLeftJoyX(void);
+    int getLeftJoyY(void);
 
-	int getRightJoyX(void);
-	int getRightJoyY(void);
+    int getRightJoyX(void);
+    int getRightJoyY(void);
 
  private:
-	/* called by constructor */
-	void loadModules(void);
-	int waitPadReady(void);
-	int initializePad(void);
+    /* called by constructor */
+    void loadModules(void);
+    int waitPadReady(void);
+    int initializePad(void);
 
-	/* make sure each instance of the class
-	 * doesn't try to load modules every
-	 * time */
-	static bool modulesLoaded;
+    /* make sure each instance of the class
+     * doesn't try to load modules every
+     * time */
+    static bool modulesLoaded;
 
-	/* make sure the pad library isn't
-	 * initialized every instance */
-	static bool padInitted;
+    /* make sure the pad library isn't
+     * initialized every instance */
+    static bool padInitted;
 
-	/* true if pressure mode is enabled currently */
-	bool inPressureMode;
+    /* true if pressure mode is enabled currently */
+    bool inPressureMode;
 
-	int port;		// where the controller is plugged in
-	int slot;
+    int port;       // where the controller is plugged in
+    int slot;
 
-	/* pad buffer - holds pad dma workspace
-	 * should be size 256, aligned 64 */
-	char *padBuf;
+    /* pad buffer - holds pad dma workspace
+     * should be size 256, aligned 64 */
+    char *padBuf;
 
-	/* holds the status of padGetState */
-	int padRet;
+    /* holds the status of padGetState */
+    int padRet;
 
-	/* handles small and big motor */
-	char actAlign[6];
-	int actuators;
+    /* handles small and big motor */
+    char actAlign[6];
+    int actuators;
 
-	/* represents the buttons on the
-	 * controller */
-	struct padButtonStatus buttons;
+    /* represents the buttons on the
+     * controller */
+    struct padButtonStatus buttons;
 
-	/* also holds pad data */
-	u32 paddata;
-	u32 old_pad;
-	u32 new_pad;
+    /* also holds pad data */
+    u32 paddata;
+    u32 old_pad;
+    u32 new_pad;
 };
 
 #endif
